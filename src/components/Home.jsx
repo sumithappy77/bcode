@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import Barcode from "react-barcode";
 import { BrowserMultiFormatReader } from "@zxing/library";
 import "./Home.css";
+import { QRCodeCanvas } from "qrcode.react";
+
 
 function Home() {
   const [products] = useState([
@@ -13,6 +15,8 @@ function Home() {
   const [scannedResult, setScannedResult] = useState("");
   const [scannedProducts, setScannedProducts] = useState([]);
   const [scannedCodes, setScannedCodes] = useState([]);
+  const [qrText, setQrText] = useState("");
+
 
 
   const videoRef = useRef(null);
@@ -77,6 +81,25 @@ function Home() {
     </div>
   ))}
 </div>
+
+<div className="qr-section">
+  <h2>QR Code Generator</h2>
+
+  <input
+    type="text"
+    placeholder="Enter link or text"
+    value={qrText}
+    onChange={(e) => setQrText(e.target.value)}
+    className="qr-input"
+  />
+
+  {qrText && (
+    <div className="qr-box">
+      <QRCodeCanvas value={qrText} size={200} />
+    </div>
+  )}
+</div>
+
 
     </div>
   );
