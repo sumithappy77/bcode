@@ -43,7 +43,7 @@ function Home() {
     return () => {
       codeReader.reset();
     };
-  }, []);
+  }, [products]);
 
   return (
     <div className="container">
