@@ -12,6 +12,8 @@ function Home() {
 
   const [scannedResult, setScannedResult] = useState("");
   const [scannedProducts, setScannedProducts] = useState([]);
+  const [scannedCodes, setScannedCodes] = useState([]);
+
 
   const videoRef = useRef(null);
 
@@ -23,18 +25,18 @@ function Home() {
         null,
         videoRef.current,
         (result, err) => {
-         if (result) {
-  const scannedId = result.text;
-  setScannedResult(scannedId);
+    if (result) {
+  const scannedValue = result.text;
+  setScannedResult(scannedValue);
 
-  const foundProduct = products.find(
-    (product) => product.id === scannedId
-  );
-
-  if (foundProduct) {
-    setScannedProducts((prev) => [...prev, foundProduct]);
-  }
+  setScannedCodes((prev) => {
+    if (!prev.includes(scannedValue)) {
+      return [...prev, scannedValue];
+    }
+    return prev;
+  });
 }
+
 
         }
       );
